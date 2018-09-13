@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas Hello World</title>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="300">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+    <script>
+        function createCanvas(){
+            var theCanvas = document.getElementById('canvas1');
+            if(!theCanvas || !theCanvas.getContext){
+                return;
+            }
+            
+            //get 2d context
+            var context = theCanvas.getContext('2d');
+            //background color
+            context.fillStyle = '#ffffaa';
+            context.fillRect(0,0,500,300);
+            //hello world text
+            context.fillStyle = '#000000';
+            context.font = '20px Sans-Serif';
+            context.textBaseline = 'top';
+            context.fillText('Hello world', 195, 80);
+            //image
+            var image = new Image();
+            image.onload = function(){
+                context.drawImage(image, 155, 110, 200, 100);
+            }
+            image.src = 'image.jpg';
+            //border
+            context.strokeStyle = '#000000';
+            context.strokeRect(5,5, 490, 290);
+        }
+        createCanvas();
+    </script>
+</body>
+</html>
