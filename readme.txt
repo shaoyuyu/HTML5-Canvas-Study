@@ -6,3 +6,4 @@ distributed
 #
 git commit -m "git tracks changes"
 My stupid boss still prefers SVN.
+Creating a new branch is quick.
