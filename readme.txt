@@ -5,3 +5,4 @@ distributed
 
 #
 git commit -m "git tracks changes"
+My stupid boss still prefers SVN.
