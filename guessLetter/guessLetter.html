@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guess Letter</title>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="300"></canvas>
+
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var guesses = 0, 
+                message = 'Guess The Letter From a (lower) to z (higher)',
+                letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+                today = new Date(),
+                letterToGuess = '',
+                higherOrLower = '',
+                lettersGuessed,
+                gameOver = false,
+                letterIndex,
+                canvas1 = document.getElementById('canvas1'), context;
+
+                if(!canvas1 || !canvas1.getContext){
+                    return;
+                }
+                context = canvas1.getContext('2d');
+                initGame();
+            function initGame(){
+                letterIndex = Math.floor(Math.random()* letters.length);
+
+                letterToGuess = letters[letterIndex];
+                guesses = 0;
+                lettersGuessed = [];
+                gameOver = false;
+                window.addEventListener('keydown', eventKeyPressed, true);
+                drawScreen();
+            }
+
+            function eventKeyPressed(e){
+                if(!gameOver){
+                    var letterPressed = String.fromCharCode(e.keyCode).toLowerCase(), guessIndex;
+
+                    guesses++;
+                    lettersGuessed.push(letterPressed);
+                    if(letterPressed === letterToGuess){
+                        gameOver = true;
+                    }else{
+                        guessIndex = letters.indexOf(letterPressed);
+                        console.log(guessIndex);
+                        if(guessIndex < 0){
+                            higherOrLower = 'That is not a letter';
+                        }else if(guessIndex > letterIndex){
+                            higherOrLower = 'Lower';
+                        }else{
+                            higherOrLower = 'Higher';
+                        }
+                    }
+                    drawScreen();
+                }
+            }
+            function drawScreen(){
+
+                //background color
+                context.fillStyle = '#ffffaa';
+                context.fillRect(0, 0, 500, 300);
+
+                //border
+                context.strokeStyle = '#000000';
+                context.strokeRect(5, 5, 490, 290);
+                
+                context.textBaseLine = 'top';
+
+                //date
+                context.fillStyle = '#000000';
+                context.font = '10px Sans-Serif';
+                context.fillText('Date: ' + formatDate(today), 150, 15);
+
+                //message
+                context.fillStyle = '#ff0000';
+                context.font = '14px Sans-Serif';
+                context.fillText(message, 125, 35);
+
+                //guess times
+                context.fillStyle = '#109910';
+                context.font = '16px Sans-Serif';
+                context.fillText('Guesses: ' + guesses, 215, 80);  
+
+                //show Higher or Lower
+                context.fillStyle = '#000000';
+                context.font = '16px Sans-Serif';
+                context.fillText('Hight Or Lower: ' + higherOrLower, 150, 125);  
+
+                //letters guessed
+                context.fillStyle = '#ff0000';
+                context.font = '16px Sans-Serif';
+                context.fillText('Letters Guessed: ' + lettersGuessed, 10, 260); 
+
+                if(gameOver){
+                    
+                    context.fillStyle = '#ff0000';
+                    context.font = '40px Sans-Serif';
+                    context.fillText('You Got it', 150, 180);  
+                } 
+            }
+            function formatDate(date){
+                var dateStr = '';
+
+                dateStr += date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+
+                return dateStr;
+            }
+
+        }
+    </script>
+</body>
+</html>
