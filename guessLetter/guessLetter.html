@@ -9,8 +9,13 @@
 <body>
     <canvas id="canvas1" width="500" height="300"></canvas>
 
+    <form>
+        <input type="button" id="createImageData" value="Export Canvas Image">
+    </form>
+
     <script>
         canvasApp();
+
         function canvasApp(){
             var guesses = 0, 
                 message = 'Guess The Letter From a (lower) to z (higher)',
@@ -23,11 +28,27 @@
                 letterIndex,
                 canvas1 = document.getElementById('canvas1'), context;
 
-                if(!canvas1 || !canvas1.getContext){
-                    return;
-                }
-                context = canvas1.getContext('2d');
-                initGame();
+            if(!canvas1 || !canvas1.getContext){
+                return;
+            }
+            context = canvas1.getContext('2d');
+            initGame();
+
+            var exportImage = document.getElementById('createImageData');
+
+            exportImage.addEventListener('click', createImageDataPressed, false);
+
+            function createImageDataPressed(){
+                var body = document.body;
+
+                var image = new Image();
+                image.style.width = canvas1.width;
+                image.style.height = canvas1.height;
+                image.src = canvas1.toDataURL();
+
+                body.appendChild(image);
+                //window.open(canvas1.toDataURL(), 'CanvasImage', 'left=0,top=0,width=' + canvas1.width + ',height=' + canvas1.height + ',toolbar=0,resizable=0');
+            }
             function initGame(){
                 letterIndex = Math.floor(Math.random()* letters.length);
 
