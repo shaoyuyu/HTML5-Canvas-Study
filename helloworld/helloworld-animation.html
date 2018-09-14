@@ -7,22 +7,71 @@
     <title>Hello World Animated</title>
 </head>
 <body>
-    <canvas id="canvas1" width="500" height="300"></canvas>
+    <canvas id="canvas1" width="640" height="480"></canvas>
 
     <script>
         canvasApp();
         function canvasApp(){
-
             var theCanvas = document.getElementById('canvas1'),
-                context,
+                context, text = 'Hello wolrd', alpha = 0, fadeIn = true, html5bg = new Image();
 
-            if(!theCanvas || theCanvas.getContext){
+
+
+            if(!theCanvas || !theCanvas.getContext){
                 return;
             }
             context = theCanvas.getContext('2d');
-
+            html5bg.src = './html5bg.jpg';
             function drawScreen(){
+                //backgournd color
+                context.globalAlpha = 1;
+                context.fillStyle = '#000000';
+                context.fillRect(0, 0, 640, 480);
+
+                //image
+                context.globalAlpha = 0.25;
+                context.drawImage(html5bg, 0, 0, 640, 480);
                 
+                if(fadeIn){
+                    alpha += 0.01;
+
+                    if(alpha > 1){
+                        alpha = 1;
+                        fadeIn = false;
+                    }
+                }else{
+                    alpha -= 0.01;
+
+                    if(alpha < 0){
+                        alpha = 0;
+                        fadeIn = true;
+                    }
+                }
+                
+                //text
+                context.font = '72px Sans-Serif';
+                context.textBaseLine = 'top';
+
+                context.globalAlpha = alpha;
+                context.fillStyle = '#ffffff';
+                context.fillText(text, 150, 200);
+            }
+            
+            window.requestAnimFrame = (function(){
+                return window.requestAnimationFrame    || 
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame    ||
+                    window.oRequestAnimationFrame      ||
+                    window.msRequestAnimationFrame     ||
+                    function(callback){
+                        window.setTimeout(callback, 1000/60);
+                    }
+            })();
+            animationLoop();
+            function animationLoop(){
+                window.requestAnimFrame(animationLoop)
+
+                drawScreen();
             }
         }
     </script>
