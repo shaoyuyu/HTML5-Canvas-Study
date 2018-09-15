@@ -1,2 +1,2 @@
 HTML5 Canvas Study
-https://canvasstudy.netlify.com/
+https://canvasstudy.netlify.com/dist
