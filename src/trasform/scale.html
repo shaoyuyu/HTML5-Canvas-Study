@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transform Scale</title>
+</head>
+<body>
+    <h3>Transform Scale</h3>
+    <canvas id="canvas1" width="900" height="300"></canvas>
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas1');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+
+                context.fillStyle = 'black';
+                context.font = '20px Sans-serif';
+                context.fillText('the square is fillRect(100, 100, 50, 50)', 80, 50);
+
+                context.fillStyle = '#aaa';
+                context.font = '18px Sans-serif';
+                context.fillText('// the translated center is (0, 0)', 320, 280);
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.scale(2, 2);
+                context.fillStyle = 'red';
+                context.fillRect(100, 100, 50, 50);
+                //comment
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.fillStyle = '#aaa';
+                context.fillText('// the translated center is (125, 125)', 200, 130);
+
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(125, 125)
+                context.scale(2, 2);
+                context.fillStyle = 'red';
+                context.fillRect(-25, -25, 50, 50);
+            }
+        }
+    </script>
+</body>
+</html>

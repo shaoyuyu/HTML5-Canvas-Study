@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compiste</title>
+</head>
+<body>
+    <h3>Composite Operation</h3>
+    <canvas id="canvas1" width="500" height="300"></canvas>
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas1');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+                //big black square
+                context.fillStyle = 'black';
+                context.fillRect(10, 10, 200, 200);
+                //small red square
+                context.fillStyle = 'red';
+                context.fillRect(1, 1, 50, 50);
+                //source-over
+                context.globalCompositeOperation = 'source-over';
+                context.fillRect(60, 1, 50, 50);
+                //destination-atop
+               // context.globalCompositeOperation = 'destination-atop';
+                //context.fillRect(1, 60 , 50, 50);
+                
+                context.globalAlpha = 0.5;
+                context.globalCompositeOperation = 'source-atop';
+                context.fillRect(60, 60, 50, 50);
+            }
+        }
+    </script>
+</body>
+</html>

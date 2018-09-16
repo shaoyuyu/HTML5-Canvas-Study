@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transform Rotate</title>
+</head>
+<body>
+    <h3>Transform Rotate</h3>
+    <canvas id="canvas1" width="900" height="300"></canvas>
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas1');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+                context.fillStyle = '#aaa';
+                context.font = '18px Sans-serif';
+                context.fillText('// the translated center is (0, 0)', 180, 220);
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.rotate(Math.PI/4);
+                context.fillStyle = 'red';
+                context.fillRect(200, 50, 50, 50);
+                context.save();
+
+                //comment
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.fillStyle = '#aaa';
+                context.fillText('// the translated center is (125, 125)', 170, 100);
+                
+                //change the translate center to the square center
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(125, 125);
+                context.rotate(Math.PI/4);
+                context.fillStyle = 'red';
+                context.fillRect(-50, -50, 50, 50);
+
+                //mutiple transform
+                //π/4
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(200, 30);
+                context.rotate(Math.PI/4);
+                context.fillStyle = 'red';
+                context.fillRect(-20, -20, 40, 40);
+                //5π/12
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(250, 30);
+                context.rotate(5*Math.PI/12);
+                context.fillStyle = 'red';
+                context.fillRect(-20, -20, 40, 40);
+                //π/12
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(300, 30);
+                context.rotate(Math.PI/2);
+                context.fillStyle = 'red';
+                context.fillRect(-20, -20, 40, 40);
+
+                //2π/3
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.translate(350, 30);
+                context.rotate(2*Math.PI/3);
+                context.fillStyle = 'red';
+                context.fillRect(-20, -20, 40, 40);
+
+                //comment
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.fillStyle = '#aaa';
+                context.fillText('// π/4 5π/12 π/12 2π/3 rotate refer to itself center point', 390, 34);
+            }
+        }
+    </script>
+</body>
+</html>
