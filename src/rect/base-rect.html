@@ -24,9 +24,33 @@
                 context.fillStyle = '#aaaaaa';
                 context.fillRect(0, 0, 200, 200);
                 context.fillStyle = '#000000';
-                context.font = '20px sans';
+                context.font = '20px Sans-Serif';
                 context.textBaseLine = 'top';
-                context.fillText('Canvas!', 0, 0);
+                context.fillText('Canvas!', 100, 100);
+            }
+
+        }
+    </script>
+    <canvas id="canvas2" width="500" height="300"></canvas>
+    <script>
+        canvasApp2()
+        function canvasApp2(){
+            var theCanvas = document.getElementById('canvas2');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+            
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+
+            function drawScreen(){
+                context.fillStyle = '#000';
+                context.strokeStyle = '#ff00ff';
+                context.lineWidth = 2;
+                context.fillRect(10, 10, 40, 40);
+                context.strokeRect(0, 0, 60, 60);
+                context.clearRect(20, 20, 20, 20);
             }
 
         }

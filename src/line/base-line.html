@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Base Line</title>
+</head>
+<body>
+    <h3>Base Line</h3>
+    <canvas id="canvas1" width="500" height="300"></canvas>
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas1');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+                context.strokeStyle = 'black';
+                context.lineWidth = 10;
+                context.lineCap = 'square';
+                context.beginPath();
+
+                context.moveTo(20, 0);
+                context.lineTo(100, 0);
+                context.stroke();
+                context.closePath();
+            }
+        }
+    </script>
+    <h3>Line Cap & Join</h3>
+    <canvas id="canvas2" width="500" height="300"></canvas>
+    <script>
+        canvasApp2();
+        function canvasApp2(){
+            var theCanvas = document.getElementById('canvas2');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+
+                //round cap, bevel join
+                context.strokeStyle = 'black';
+                context.lineWidth = 10;
+                context.lineCap = 'round';
+                context.lineJoin = 'bevel';
+                context.beginPath();
+                context.moveTo(0, 0);
+                context.lineTo(25, 0);
+                context.lineTo(25, 25);
+                context.stroke();
+                context.closePath();
+                context.fillStyle = '#aaa';
+                context.font = '18px Sans-Serif';
+                context.fillText('//round cap, bevel join, part is overflow', 45, 15);
+
+                //round cap, bevel join
+                context.beginPath();
+                context.moveTo(10, 50);
+                context.lineTo(35, 50);
+                context.lineTo(35, 75);
+                context.stroke();
+                context.closePath();
+                context.fillStyle = '#aaa';
+                context.font = '18px Sans-Serif';
+                context.fillText('//round cap, bevel join', 55, 65);
+                //round join, butt cap
+                context.lineCap = 'butt';
+                context.lineJoin = 'round';
+                context.beginPath();
+                context.moveTo(10, 100);
+                context.lineTo(35, 100);
+                context.lineTo(35, 125);
+                context.stroke();
+                context.closePath();
+                context.fillStyle = '#aaa';
+                context.font = '18px Sans-Serif';
+                context.fillText('//butt cap, round join', 55, 115);
+            }
+        }
+    </script>
+</body>
+</html>

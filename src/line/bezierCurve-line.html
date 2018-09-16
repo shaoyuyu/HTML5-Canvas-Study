@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bezier Curve Line</title>
+</head>
+<body>
+    <h3>Quadratic Curve Line</h3>
+    <p>
+        Formula: context.quadraticCurveTo(cpx, cpy, x, y);
+    </p>
+    <canvas id="canvas1" width="700" height="600"></canvas>
+    <script>
+        canvasApp();
+            function canvasApp(){
+                var theCanvas = document.getElementById('canvas1');
+    
+                if(!theCanvas || !theCanvas.getContext)
+                    return;
+    
+                var context = theCanvas.getContext('2d');
+    
+                drawScreen();
+                function drawScreen(){
+                    context.strokeStyle = 'black';
+                    context.lineWidth = 5;
+                    //quadratic curve 
+                    context.beginPath();
+                    context.moveTo(10, 10);
+                    context.quadraticCurveTo(100, 25, 10, 50);
+                    context.stroke();
+                    context.closePath();
+
+                    context.fillStyle = '#aaa';
+                    context.font = '18px Sans-serif';
+                    context.fillText('// context.quadraticCurveTo(100, 25, 10, 50);', 115, 35);
+
+                    //bezier curve
+                    context.beginPath();
+                    context.moveTo(150, 40);
+                    context.bezierCurveTo(0, 125, 300, 175, 150, 340);
+                    context.stroke();
+                    context.closePath();
+
+                    context.fillStyle = '#aaa';
+                    context.font = '18px Sans-serif';
+                    context.fillText('// context.bezierCurveTo(0, 125, 300, 175, 150, 340)', 10, 360);
+                }
+            }
+    </script>
+
+    <h3>Clip</h3>
+    <canvas id="canvas2" width="500" height="500"></canvas>
+    <script>
+        canvasApp();
+            function canvasApp(){
+                var theCanvas = document.getElementById('canvas2');
+
+                if(!theCanvas || !theCanvas.getContext)
+                    return;
+
+                var context = theCanvas.getContext('2d');
+
+                drawScreen();
+                function drawScreen(){
+                    
+                    //draw a big black rectangle
+                    context.fillStyle = '#000';
+                    context.fillRect(10, 10, 200, 200);
+                    context.save();
+
+                    context.beginPath();
+                    context.rect(10, 10, 50, 50);
+                    context.clip();
+                    
+                    //red circle
+                    context.beginPath();
+                    context.strokeStyle = 'red';
+                    context.lineWidth = 5;
+                    context.arc(110, 110, 100, 0, 2*Math.PI, false);
+
+                    context.stroke();
+                    context.closePath();
+                    context.restore();
+
+                    //clip canvas again
+                    context.beginPath();
+                    context.rect(0, 0, 500, 500);
+                    context.clip();
+
+                    //blue circle
+                    context.beginPath();
+                    context.strokeStyle = 'blue';
+                    context.lineWidth = 5;
+                    context.arc(110, 110, 50, 0, 2*Math.PI, false);
+                    
+                    context.stroke();
+                    context.closePath();
+
+                }
+            }
+    </script>
+</body>
+</html>
