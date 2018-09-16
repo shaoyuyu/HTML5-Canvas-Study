@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Linear Gradient</title>
+</head>
+<body>
+    <h3>Horizontal Linear Gradient</h3>
+    <canvas id="canvas1" width="900" height="300"></canvas>
+    <script>
+        canvasApp();
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas1');
+
+            if(!theCanvas || !theCanvas.getContext)
+                return;
+
+            var context = theCanvas.getContext('2d');
+
+            drawScreen();
+            function drawScreen(){
+                var gr = context.createLinearGradient(0, 0, 100, 0);
+
+                gr.addColorStop(0, 'rgb(255, 0, 0)');
+                gr.addColorStop(0.5, 'rgb(0, 255, 0)');
+                gr.addColorStop(1, 'rgb(255, 0, 0)');
+
+                context.fillStyle = gr;
+                context.fillRect(0, 0, 100, 100);
+            }
+        }
+    </script>
+</body>
+</html>
